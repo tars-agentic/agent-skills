@@ -20,3 +20,6 @@
 - **Operator Precedence**: Use white space to accentuate the precedence of operators.
   - Keep high-precedence factors together (e.g., `2*a`).
   - Separate low-precedence terms with spaces (e.g., `b*b - 4*a*c`).
+
+### Team Rules
+- **Agree once, follow always.** A consistent codebase from one team beats individually "better" styles. Configure a formatter and don't override it.

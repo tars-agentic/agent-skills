@@ -2,9 +2,10 @@
 
 ### Core Philosophy
 - **Functions should be small.** Then smaller than that.
-- **Do One Thing.** A function should do one thing, do it well, and do it only.
-- **One Level of Abstraction.** All statements in a function must stay at the same level of abstraction.
+- **Do One Thing.** A function does one thing if it performs only those steps that are one level below the stated name.
+- **One Level of Abstraction.** All statements in a function must stay at the same level. If you can extract a function with a meaningful name, the original had mixed levels.
 - **The Stepdown Rule.** Code should read like a top-down narrative. Every function should be followed by those at the next level of abstraction.
+- **Sections are a smell.** If a function has distinct sections (setup, logic, cleanup), it's doing more than one thing.
 
 ### Size and Structure
 - **Length:** Ideally 2–4 lines. Rarely more than 20.
@@ -25,6 +26,7 @@
 - **Argument Objects:** If a function needs 2–3+ arguments, wrap some in a class.
   - *Bad:* `makeCircle(double x, double y, double radius)`
   - *Good:* `makeCircle(Point center, double radius)`
+- **Varargs:** If variable arguments are treated identically, they're equivalent to a single `List` argument. Use sparingly.
 
 ### Side Effects (Hidden Lies)
 - **Promises:** A function must not do hidden things (e.g., modifying globals or session state) not implied by its name.

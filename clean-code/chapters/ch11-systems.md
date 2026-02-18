@@ -3,9 +3,11 @@
 ### Separation of Construction from Use
 - **Startup vs. Runtime:** Separate the startup process (wiring) from the runtime logic.
 - **Main Separation:** Move all construction logic to a dedicated setup or "Main" module.
+- **Lazy Initialization:** Can simplify but mixes construction with use; prefer explicit wiring or DI containers.
+- **Inversion of Control (IoC):** The app doesn't fetch dependencies; it receives them. Control flows from the framework into your code.
 - **Dependency Injection:** Applications should be passive, receiving dependencies rather than fetching them.
+- **DI Containers:** When wiring gets complex, delegate to a container (Spring, Guice, etc.) rather than manual factories.
 - **Abstract Factories:** Use factories when the app decides *when* to create an object, but not *how*.
-- **Consistency:** Maintain a global strategy for resolving major system dependencies.
 - **Testability:** Designing classes to receive dependencies ensures they are easily testable and mockable.
 
 ### Scaling and Emergent Architecture

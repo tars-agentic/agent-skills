@@ -9,6 +9,7 @@
 ### Challenges
 - **Race Conditions:** Multiple execution paths can lead to inconsistent state.
 - **Nondeterminism:** Bugs are often unrepeatable "one-offs" that are actually logic defects.
+- **Path Explosion:** With N instructions and T threads, possible orderings = (T×N)! / (N!)^T — even trivial code has thousands of interleavings.
 
 ### Concurrency Defense Principles
 - **SRP for Concurrency:** Keep concurrency-related code separate from business logic.
@@ -25,6 +26,8 @@
 - **Small Critical Sections:** While Java uses `synchronized/yield/wait`, the principle is universal: keep locked sections tiny.
 - **Avoid Multi-Method Locking:** Using multiple locked methods on one shared object is dangerous.
 - **Execution Models:** Understand Deadlock (waiting for each other), Starvation (denied access), and Livelock (resonance).
+- **Four Deadlock Conditions:** Mutual exclusion + lock & wait + no preemption + circular wait. Break any one to prevent deadlock.
+- **Thread-Safe Collections:** Prefer `ConcurrentHashMap`, atomic classes (`AtomicInteger`), and `putIfAbsent`-style compound operations over manual locking.
 - **Graceful Shutdown:** Design shutdown early; tasks blocked on external input are notoriously hard to kill.
 
 ### Modern Patterns
