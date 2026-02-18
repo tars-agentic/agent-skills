@@ -1,0 +1,27 @@
+## Template Method (Behavioral)
+
+- **Intent**: Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Redefine certain steps without changing the algorithm's structure.
+- **Problem**:
+    - Common algorithm structures are duplicated across classes, leading to maintenance issues.
+    - Subclasses need to vary specific steps of a process while keeping the overall flow invariant.
+    - Need to control where and how subclasses can extend base functionality.
+- **Participants**:
+    - **AbstractClass**: Defines the template method (skeleton) and abstract primitive operations for varying steps.
+    - **ConcreteClass**: Implements the primitive operations to carry out subclass-specific logic.
+- **When to Use**:
+    - To implement invariant parts of an algorithm once and let subclasses implement the variants.
+    - When common behavior among subclasses should be factored into a common class to avoid duplication.
+    - To control subclass extensions by permitting overrides only at specific "hook" points.
+- **Implementation Notes**:
+    - **Access Control**: Declare primitive operations as `protected` so they are only accessible to the template method.
+    - **Invariant Skeleton**: The template method itself should typically be non-virtual (C++) or final (Java) to prevent overriding.
+    - **Minimize Primitives**: Keep the number of operations a subclass must override to a minimum to reduce the burden on the implementer.
+    - **Hooks**: Provide default (often empty) behavior in the base class that subclasses *can* override, whereas abstract methods *must* be overridden.
+    - **Naming**: Using a prefix like "Do" (e.g., `DoRead`, `DoDisplay`) helps identify operations intended for subclassing.
+- **Consequences**:
+    - **Hollywood Principle**: "Don't call us, we'll call you"—the parent class calls subclass operations, not vice-versa.
+    - **Inverted Control**: The base class controls the logic flow, ensuring the algorithm's integrity.
+    - **Factoring**: Highly effective for code reuse in libraries and frameworks.
+- **Related Patterns**:
+    - **Factory Method**: Often called from within a template method to create objects.
+    - **Strategy**: Varies the entire algorithm via delegation/object composition; Template Method varies parts via inheritance.

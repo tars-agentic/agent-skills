@@ -1,0 +1,30 @@
+## Composite (Structural)
+
+- **Intent**: Compose objects into tree structures to represent part-whole hierarchies. Enables treating individual objects and compositions uniformly.
+- **Problem**:
+  - Treating primitive (leaf) and container (composite) objects differently increases client complexity.
+  - Clients must use type-checks or "tag-and-case" logic to distinguish between objects and groups.
+- **When to Use**:
+  - To represent recursive part-whole hierarchies of objects.
+  - To allow clients to ignore the difference between single objects and collections.
+- **Participants**:
+  - **Component**: Declares the root interface for all objects; includes child management operations.
+  - **Leaf**: Represents primitive objects in the composition; has no children.
+  - **Composite**: Defines behavior for components with children; stores and manages child components.
+  - **Client**: Manipulates all objects in the hierarchy via the Component interface.
+- **Implementation Notes**:
+  - **Safety vs Transparency**: Declaring child management (Add/Remove) in Component provides Transparency (uniformity) but risks runtime errors on Leaves. Declaring only in Composite is Safer but requires type-casting.
+  - **Parent References**: Storing parent links in Component simplifies upward traversal and Chain of Responsibility.
+  - **Maximizing Interface**: Move as many operations as possible to the Component class, providing default "no-op" or "empty" behaviors for Leaves.
+  - **Caching**: Composites can cache child results (e.g., bounding boxes) to improve traversal performance; requires cache invalidation.
+  - **Storage**: Use lists, arrays, or hash tables for children. Composites usually manage child deletion in non-GC languages.
+- **Consequences**:
+  - **Interchangeability**: Primitives can be replaced by complex compositions anywhere a Component is expected.
+  - **Simplified Clients**: Removes branching logic based on object types.
+  - **Easy Extension**: New Leaf or Composite subclasses work automatically with existing structures.
+  - **Over-generalization**: It is difficult to restrict a composite's children to specific types using the type system alone.
+- **Related Patterns**:
+  - **Chain of Responsibility**: Often uses the component-parent link for request propagation.
+  - **Decorator**: Frequently shares a common Component base with Composite.
+  - **Flyweight**: Useful for sharing leaf components, though it complicates parent links.
+  - **Iterator/Visitor**: Standard patterns for traversing and operating on composite structures.

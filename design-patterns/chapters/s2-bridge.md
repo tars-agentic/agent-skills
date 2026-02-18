@@ -1,0 +1,31 @@
+## Bridge (Structural)
+
+- **Intent**: Decouple an abstraction from its implementation so that the two can vary independently.
+- **Problem**:
+  - Inheritance binds implementation to abstraction permanently, making independent variation difficult.
+  - Adding new platforms or features results in class explosion (e.g., XWindow, PMWindow, XIconWindow, PMIconWindow).
+  - Client code becomes dependent on concrete implementations, hindering portability.
+- **When to Use**:
+  - To avoid permanent binding between abstraction and implementation (e.g., runtime selection).
+  - When both abstraction and implementation should be extensible via subclassing.
+  - When implementation changes must not require client recompilation.
+  - To hide implementation details completely (C++ Pimpl/Cheshire Cat idiom).
+  - When a hierarchy needs to be split into "Nested Generalizations."
+  - To share a single implementation among multiple objects (e.g., reference counting).
+- **Participants**:
+  - **Abstraction**: Defines the high-level interface; holds a reference to an Implementor.
+  - **RefinedAbstraction**: Extends or specializes the Abstraction's interface.
+  - **Implementor**: Defines the low-level interface for implementations (primitive operations).
+  - **ConcreteImplementor**: Implements the Implementor interface with platform-specific code.
+- **Implementation Notes**:
+  - **Degenerate Case**: If only one implementation exists, the Bridge is still useful for decoupling to ensure binary compatibility.
+  - **Creation**: Abstraction can instantiate the Implementor via parameters, use a default, or delegate to an Abstract Factory.
+  - **Sharing**: Handle/Body idiom can be used to share implementations; requires reference counting (increment on assignment, decrement on destruction).
+  - **Multiple Inheritance**: Using MI to combine Abstraction and ConcreteImplementor creates a static binding, failing the "true" Bridge goal.
+- **Consequences**:
+  - **Decoupling**: Implementations can be configured or swapped at runtime.
+  - **Extensibility**: Abstraction and Implementor hierarchies can grow independently.
+  - **Layering**: Encourages a cleaner system structure by separating high-level logic from primitives.
+- **Related Patterns**:
+  - **Abstract Factory**: Often used to create and configure the specific Bridge.
+  - **Adapter**: Typically applied after a system is designed; Bridge is used up-front.

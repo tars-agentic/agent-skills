@@ -1,0 +1,26 @@
+## Proxy (Structural)
+
+- **Intent**: Provide a surrogate or placeholder for another object to control access to it.
+- **Problem**: Need to defer the cost of object creation, control access rights, or manage remote interactions without complicating the client logic.
+- **When to Use**:
+  - **Remote Proxy**: Local representative for an object in a different address space (e.g., RPC).
+  - **Virtual Proxy**: Creates expensive objects on demand (lazy loading).
+  - **Protection Proxy**: Controls access rights to the original object.
+  - **Smart Reference**: Adds housekeeping (ref counting, locking, loading from disk) upon access.
+- **Participants**:
+  - **Proxy**: Maintains reference to RealSubject; provides identical interface to Subject; controls access/creation.
+  - **Subject**: Common interface for RealSubject and Proxy; allows substitution.
+  - **RealSubject**: The actual object being represented/protected.
+- **Implementation Notes**:
+  - **Indirection**: Forwards requests to the real subject only when appropriate.
+  - **Copy-on-Write**: Optimization where copying an object is deferred until it is modified; requires ref counting.
+  - **Generic Proxies**: Can be implemented using "message forwarding" hooks (e.g., `method_missing` or `doesNotUnderstand`) to avoid writing wrapper methods for every call.
+  - Virtual proxies must know the concrete class to instantiate it, but others can stay decoupled via the Subject interface.
+- **Consequences**:
+  - Hides the location of remote objects.
+  - Optimizes memory by creating heavyweight objects only when needed.
+  - Transparently adds housekeeping or security checks.
+  - **Caution**: Identity tests on the proxy vs. the real subject may fail.
+- **Related Patterns**:
+  - **Adapter**: Changes the interface; Proxy keeps it the same (or a subset).
+  - **Decorator**: Adds responsibilities/behavior; Proxy controls access/lifecycle.

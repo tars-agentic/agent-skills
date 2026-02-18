@@ -1,0 +1,29 @@
+## Abstract Factory (Creational)
+
+- **Intent**: Provide an interface for creating families of related or dependent objects without specifying their concrete classes.
+- **Problem**: An application needs to be portable across multiple product suites (e.g., different UI look-and-feels) but should not be hard-coded to specific concrete classes. Manual instantiation of specific classes makes switching product families difficult and error-prone.
+- **Participants**:
+    - **AbstractFactory**: Declares the interface for operations that create abstract products.
+    - **ConcreteFactory**: Implements operations to create specific concrete product objects.
+    - **AbstractProduct**: Declares an interface for a type of product object.
+    - **ConcreteProduct**: Defines a product object to be created by the factory; implements the AbstractProduct interface.
+    - **Client**: Uses only interfaces declared by AbstractFactory and AbstractProduct classes.
+- **When to Use**:
+    - System should be independent of how its products are created, composed, and represented.
+    - System needs configuration with one of multiple product families.
+    - Related products must be used together, and you need to enforce this constraint.
+    - You want to reveal product interfaces only, hiding implementation details in a library.
+- **Implementation**:
+    - **Singletons**: Concrete factories are often implemented as Singletons since only one instance per product family is typically needed.
+    - **Creation**: Usually implemented via **Factory Methods** (subclassing) or **Prototypes** (cloning prototypical instances).
+    - **Extensibility**: Adding new product types is difficult as it requires changing the `AbstractFactory` interface and all subclasses.
+    - **Parameterized Creation**: A more flexible (but less type-safe) approach uses a single "Make" operation with a parameter identifying the product type.
+- **Consequences**:
+    - **Isolates Concrete Classes**: Clients interact only through abstract interfaces; product names are hidden.
+    - **Easy Family Switching**: Changing the entire product suite requires changing only the concrete factory instance.
+    - **Promotes Consistency**: Automatically enforces that products from the same family are used together.
+    - **Fragile Interface**: Extending the factory to support new products is a major undertaking.
+- **Related**:
+    - **Factory Method**: Often used to implement the creation operations in Abstract Factory.
+    - **Prototype**: An alternative implementation strategy for the factory.
+    - **Singleton**: Concrete factories are typically singletons.

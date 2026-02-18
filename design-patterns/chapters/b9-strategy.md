@@ -1,0 +1,28 @@
+## Strategy (Behavioral)
+
+- **Intent**: Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.
+- **Problem**:
+    - Hard-wiring algorithms into clients makes them complex, bulky, and hard to maintain.
+    - Supporting multiple algorithm variants often leads to messy conditional statements.
+    - It is difficult to add or modify algorithms when they are integral parts of the client.
+- **Participants**:
+    - **Strategy**: Declares a common interface for all supported algorithms.
+    - **ConcreteStrategy**: Implements the specific algorithm using the Strategy interface.
+    - **Context**: Maintained with a reference to a Strategy; forwards requests to the Strategy object.
+- **When to Use**:
+    - Many related classes differ only in their behavior.
+    - You need different variants of an algorithm (e.g., differing space/time trade-offs).
+    - You want to hide complex, algorithm-specific data structures from the client.
+    - A class defines many behaviors that appear as multiple conditional branches.
+- **Implementation Notes**:
+    - **Data Passing**: Context can pass data as parameters (decoupled) or pass itself as a reference (closer coupling, but allows Strategy to pull only what it needs).
+    - **Compile-time selection**: C++ templates can bind a Strategy statically for better efficiency if runtime switching isn't required.
+    - **Optional Strategy**: Context can provide a default behavior if no Strategy object is provided.
+    - **Statelessness**: Strategies can often be implemented as stateless objects to be shared across contexts.
+- **Consequences**:
+    - **Pros**: Eliminates conditional statements; provides a choice of implementations; makes algorithms reusable across different contexts.
+    - **Cons**: Clients must understand how Strategies differ to choose the correct one; increases the total number of objects in the system.
+    - **Communication Overhead**: The Strategy interface is shared, so simple strategies may receive parameters they don't need.
+- **Related Patterns**:
+    - **Flyweight**: Strategy objects often make good flyweights if they are stateless.
+    - **Template Method**: Uses inheritance to vary part of an algorithm; Strategy uses delegation to vary the entire algorithm.

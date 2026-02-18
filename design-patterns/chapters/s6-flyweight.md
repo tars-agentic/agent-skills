@@ -1,0 +1,29 @@
+## Flyweight (Structural)
+
+- **Intent**: Use sharing to support large numbers of fine-grained objects efficiently.
+- **Problem**: Applications benefiting from fine-grained objects (e.g., character-level formatting) face prohibitive memory costs and runtime overhead from sheer object count.
+- **When to Use**:
+  - Application uses a massive number of objects.
+  - Storage costs are high due to object quantity.
+  - Most object state can be moved outside the object (extrinsic).
+  - Many objects can be replaced by few shared ones once state is removed.
+  - Application logic does not depend on object identity.
+- **Participants**:
+  - **Flyweight**: Interface through which flyweights receive and act on extrinsic state.
+  - **ConcreteFlyweight**: Implements interface and stores intrinsic (sharable) state.
+  - **UnsharedConcreteFlyweight**: Optional non-shared classes that may contain shared flyweights.
+  - **FlyweightFactory**: Creates and manages flyweights; ensures instances are shared properly via a pool.
+  - **Client**: Maintains references to flyweights; computes/stores extrinsic state.
+- **Implementation Notes**:
+  - **Intrinsic State**: Stored in the flyweight; independent of context (e.g., character code).
+  - **Extrinsic State**: Stored/computed by clients; varies with context (e.g., screen coordinates).
+  - Clients must never instantiate flyweights directly; use the factory's associative store.
+  - Context-dependent data is passed into flyweight methods as parameters.
+  - Often combined with Composite to represent hierarchical structures with shared leaves.
+- **Consequences**:
+  - **Storage Savings**: Increases with more sharing, smaller intrinsic state, and computed extrinsic state.
+  - **Runtime Overhead**: Computing or transferring extrinsic state adds minor CPU cost.
+  - **Identity**: Conceptually distinct objects share the same address; identity checks may be misleading.
+- **Related Patterns**:
+  - **Composite**: Leaf nodes in a hierarchy are often flyweights.
+  - **State/Strategy**: Best implemented as flyweights to avoid redundant objects.
