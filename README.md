@@ -16,6 +16,7 @@ Skills are optimized for token efficiency: dense bullets, no fluff, every line e
 | Skill | Source | Description |
 |-------|--------|-------------|
 | [software-engineering](./software-engineering/) | van Vliet, *Software Engineering* (2007) | 15 chapters of timeless SE principles — architecture, design, testing, maintenance, quality |
+| [clean-code](./clean-code/) | Martin, *Clean Code* (2008) | 16 chapters — naming, functions, classes, testing, error handling, smells checklist + agent anti-patterns |
 
 ## The Book-to-Skill Pipeline
 
